@@ -63,7 +63,6 @@
         }
       ]
     ],
-    "owner": "hktekno-mobile",
     "experiments": {
       "typedRoutes": true
     },
@@ -72,7 +71,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "12165322-2ea5-445d-889c-469189e7797d"
+        "projectId": "4a00323f-0df5-40a9-aa58-5d4953f73bc8"
       }
     },
     "runtimeVersion": {
