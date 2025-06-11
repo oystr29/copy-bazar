@@ -1,0 +1,62 @@
+import { Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Image } from "expo-image";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Flashsale } from "~/components/layout/flashsale";
+import { BundleList } from "~/components/layout/bundle";
+
+const Header = () => {
+  return (
+    <>
+      <View
+        className="bg-white p-4"
+        style={{
+          shadowColor: "#bebebe",
+          shadowOffset: {
+            width: 0,
+            height: 12,
+          },
+          shadowOpacity: 1,
+          shadowRadius: 50,
+          elevation: 24,
+          borderBottomRightRadius: 30,
+          borderBottomLeftRadius: 30,
+        }}
+      >
+        <View className="flex flex-row justify-between items-center mb-4">
+          <Image
+            style={{ width: 87, height: 47 }}
+            source={require("../../assets/images/logo.png")}
+          />
+          <Pressable className="border-primary border p-1.5 rounded-lg">
+            <MaterialCommunityIcons size={24} name="bell-outline" />
+          </Pressable>
+        </View>
+        <Pressable className="flex flex-row items-center justify-center gap-1 bg-[#F6F6F6] h-12 rounded-2xl mb-3.5">
+          <AntDesign name="search1" size={20} color="hsl(122, 91%, 21%)" />
+          <Text className="text-[#171717]/25">Search the entire product</Text>
+        </Pressable>
+      </View>
+    </>
+  );
+};
+
+export default function Feed() {
+  return (
+    <SafeAreaView style={{ flex: 1 }} className="bg-white">
+      <Header />
+      <ScrollView style={{ flex: 1, paddingTop: 32 }} className="bg-mainBg">
+        <View className="mb-5">
+          <Flashsale />
+        </View>
+        <View className="px-4">
+          <View className="w-full flex flex-row items-center justify-center mb-4">
+            <Text className="text-gray-700 text-lg">Paket Bundle</Text>
+          </View>
+          <BundleList />
+        </View>
+        <View className="h-40 w-full" />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
