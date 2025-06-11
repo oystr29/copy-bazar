@@ -9,7 +9,8 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.tokobazzarmurah.app"
     },
     "android": {
       "userInterfaceStyle": "light",
@@ -19,7 +20,13 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.tokobazzarmurah.app",
-      "googleServicesFile": "./google-services.json"
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -28,12 +35,6 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/images/notif.png"
-        }
-      ],
       [
         "expo-camera",
         {

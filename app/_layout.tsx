@@ -14,24 +14,14 @@ import { PortalHost } from "@rn-primitives/portal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Image, Platform, View } from "react-native";
 import { Provider } from "~/context/auth";
-import * as Notifications from "expo-notifications";
 import { storage } from "~/lib/storage";
 import { Session } from "~/kit/auth/schema";
 import { setAxiosAuth } from "~/lib/axios";
-import { useNotifStore } from "~/lib/hooks/useNotifStore";
 import * as SplashScreen from "expo-splash-screen";
 import { Toaster } from "~/lib/sonner";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -47,16 +37,6 @@ const queryClient = new QueryClient({
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const [loadedUser, setLoadedUser] = useState<Session | null>(null);
-  const setNotifData = useNotifStore((s) => s.setData);
-
-  const registerForPushNotificationsAsync = useNotifStore(
-    (s) => s.registerForPushNotificationsAsync,
-  );
-
-  const notificationListener = useNotifStore(
-    (s) => s.data.notificationListener,
-  );
-  const responseListener = useNotifStore((s) => s.data.responseListener);
 
   const getUserFromStorage = async () => {
     const user = storage.getString("user");
@@ -71,35 +51,6 @@ export default function RootLayout() {
 
   useEffect(() => {
     getUserFromStorage();
-  }, []);
-
-  useEffect(() => {
-    registerForPushNotificationsAsync()
-      .then((token) => setNotifData({ expoPushToken: token ?? undefined }))
-      .catch((_) => setNotifData({ expoPushToken: undefined }));
-
-    setNotifData({
-      notificationListener: Notifications.addNotificationReceivedListener(
-        (notification) => {
-          setNotifData({ notification });
-        },
-      ),
-    });
-
-    setNotifData({
-      responseListener: Notifications.addNotificationResponseReceivedListener(
-        (response) => {
-          console.log(response);
-        },
-      ),
-    });
-
-    return () => {
-      notificationListener &&
-        Notifications.removeNotificationSubscription(notificationListener);
-      responseListener &&
-        Notifications.removeNotificationSubscription(responseListener);
-    };
   }, []);
 
   if (!isReady)
