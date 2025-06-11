@@ -100,26 +100,6 @@ export default function Screen() {
               Platform.OS === "web" && "pt-10",
             )}
           >
-            {__DEV__ && (
-              <View className="flex-row gap-4 items-center absolute right-2 top-1">
-                <Button
-                  onPress={() => {
-                    form.setValue("email", "customer@gmail.com");
-                    form.setValue("password", "customer5183");
-                  }}
-                >
-                  <Text className="text-white">Customer</Text>
-                </Button>
-                <Button
-                  onPress={() => {
-                    form.setValue("email", "admin@gmail.com");
-                    form.setValue("password", "admin9732");
-                  }}
-                >
-                  <Text className="text-white">Admin</Text>
-                </Button>
-              </View>
-            )}
             <FormField
               control={form.control}
               name="email"
